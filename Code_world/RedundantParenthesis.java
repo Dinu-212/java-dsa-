@@ -1,0 +1,41 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class RedundantParenthesis {
+    public static void main(String[] args) {
+        Scanner snr=new Scanner(System.in);
+        String exp=snr.next();
+        System.out.println(isRedundantBrackets(exp));
+        snr.close();
+    }
+    static boolean isRedundantBrackets(String str)
+    {
+        Stack<Character> stk=new Stack<>();
+        for(int idx=0;idx<str.length();idx++)
+        {
+            Character readingCharacter=str.charAt(idx);
+            if(readingCharacter!=')')
+            {
+                stk.push(readingCharacter);
+            }
+            else
+            {
+                boolean operator_found=false;
+                while(!stk.isEmpty() && stk.peek()!='(')
+                {
+                    char popped_symbol=stk.pop();
+                    if("+-*/".contains(popped_symbol+""))
+                    {
+                        operator_found=true;
+                    }
+                }
+                stk.pop();
+                if(operator_found==false)
+                {
+                    return true;
+                }
+            }
+    }
+    return false;
+}
+}
